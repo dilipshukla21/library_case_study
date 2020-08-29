@@ -59,14 +59,17 @@ public class SubscriptionService {
 	}
 
 	@HystrixCommand(fallbackMethod = "bookServiceFallBack")
-	private void updateBookAvailability(Subscription subscription, boolean issue) throws BookNotFoundException {
+	private void updateBookAvailability(Subscription subscription, boolean issueBook) throws BookNotFoundException {
 		Book bookToSubscribe = bookService.getBook(subscription.getBookId());
-		if(Objects.isNull(bookToSubscribe) || bookToSubscribe.getCopiesAvailable()<=0) {
+		if(Objects.isNull(bookToSubscribe) || (issueBook && bookToSubscribe.getCopiesAvailable()<=0)) {
 			throw new BookNotFoundException("No book found for id " + subscription.getBookId());
 		}
 		
-		Integer newAvailableQuantity = issue ? bookToSubscribe.getCopiesAvailable() -1 
-				: bookToSubscribe.getCopiesAvailable() +1;
+		Integer newAvailableQuantity = issueBook ? (bookToSubscribe.getCopiesAvailable().intValue() - 1) 
+				: (bookToSubscribe.getCopiesAvailable().intValue() + 1);
+		if(newAvailableQuantity > bookToSubscribe.getTotalCopies()) {
+			throw new BookStoreNotUpdatedException("Book store has already all copies of book with Id " + subscription.getBookId());
+		}
 		bookToSubscribe.setCopiesAvailable(newAvailableQuantity);
 		boolean update = bookService.updateBookStock(bookToSubscribe.getBookId(), bookToSubscribe);
 		if(!update) {
