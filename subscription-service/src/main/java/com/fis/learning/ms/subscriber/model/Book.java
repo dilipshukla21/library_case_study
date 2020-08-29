@@ -1,29 +1,16 @@
-package com.fis.learning.ms.model;
+package com.fis.learning.ms.subscriber.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.validation.constraints.Min;
-
-@Entity
 public class Book {
-	@Id
-	@Column(name="book_id",updatable=false)
-	private String bookId;
+
+	private final String bookId;
+
+    private final String name;
 	
-	@Column(name="book_name",unique= true, nullable=false)
-    private String name;
+    private final String author;
 	
-	@Column(name="author",nullable=false)
-    private String author;
-	
-	@Min(0)
-	@Column(name="available_copies")
     private Integer copiesAvailable;
-	
-	@Min(0)
-	@Column(name="total_copies")
-    private Integer totalCopies;
+
+    private final Integer totalCopies;
 	
 	public Book() {
 		this(null, null, null, null, null);
@@ -41,21 +28,15 @@ public class Book {
 	public String getBookId() {
 		return bookId;
 	}
-	public void setBookId(String bookId) {
-		this.bookId = bookId;
-	}
+	
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
+	
 	public String getAuthor() {
 		return author;
 	}
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+	
 	public Integer getCopiesAvailable() {
 		return copiesAvailable;
 	}
@@ -65,10 +46,20 @@ public class Book {
 	public Integer getTotalCopies() {
 		return totalCopies;
 	}
+	
+	/*public void setBookId(String bookId) {
+		this.bookId = bookId;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 	public void setTotalCopies(Integer totalCopies) {
 		this.totalCopies = totalCopies;
 	}
-
+*/
 	@Override
 	public String toString() {
 		return "Book [bookId=" + bookId + ", name=" + name + ", author=" + author + ", copiesAvailable="

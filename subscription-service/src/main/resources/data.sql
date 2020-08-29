@@ -1,0 +1,3 @@
+insert into subscription(subscriber_name,date_subscribed,date_returned,book_id) values ('John', PARSEDATETIME('12-JUN-2020','dd-MMM-yyyy'), NULL,'B1212');
+insert into subscription(subscriber_name,date_subscribed,date_returned,book_id) values ('Mark', PARSEDATETIME('26-APR-2020', 'dd-MMM-yyyy'), PARSEDATETIME('14-May-2020', 'dd-MMM-yyyy'),'B4232');
+insert into subscription(subscriber_name,date_subscribed,date_returned,book_id) values ('Peter', PARSEDATETIME('22-JUN-2020', 'dd-MMM-yyyy'), NULL,'B1212');
