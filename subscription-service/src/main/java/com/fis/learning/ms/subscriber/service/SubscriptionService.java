@@ -71,6 +71,7 @@ public class SubscriptionService {
 			throw new BookStoreNotUpdatedException("Book store has already all copies of book with Id " + subscription.getBookId());
 		}
 		bookToSubscribe.setCopiesAvailable(newAvailableQuantity);
+		System.out.println("Sending book details for update" + bookToSubscribe);
 		boolean update = bookService.updateBookStock(bookToSubscribe.getBookId(), bookToSubscribe);
 		if(!update) {
 			throw new BookStoreNotUpdatedException("Book store not update for Id " + subscription.getBookId());

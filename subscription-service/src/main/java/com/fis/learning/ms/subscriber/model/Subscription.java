@@ -10,6 +10,8 @@ import javax.persistence.Id;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import io.micrometer.core.instrument.util.StringUtils;
 
 @Entity
@@ -25,10 +27,12 @@ public class Subscription implements Serializable {
 	
 	@Column(name="date_subscribed", updatable=false, columnDefinition = "DATE")
 	@DateTimeFormat(pattern = DATE_FORMAT)
+	@JsonFormat(pattern=DATE_FORMAT)
 	private LocalDate dateSubscribed;
 	
 	@Column(name="date_returned", columnDefinition = "DATE")
 	@DateTimeFormat(pattern = DATE_FORMAT)
+	@JsonFormat(pattern=DATE_FORMAT)
 	private LocalDate dateReturned;
 	
 	@Column(name="book_id", nullable=false)
